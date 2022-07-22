@@ -9,6 +9,17 @@ function ContactList() {
   const filter = useSelector(getFilter);
 
   const getContacts = () => {
+    function dataSort (a, b) {
+      let nameA = a.name.toLowerCase(),
+        nameB = b.name.toLowerCase();
+      if (nameA < nameB)
+        //сортируем строки по возрастанию
+        return -1;
+      if (nameA > nameB) return 1;
+      return 0;
+      //sort робе на фільтрі
+    };
+
     if (filter === '') {
       return data;
     }
@@ -16,16 +27,7 @@ function ContactList() {
       .filter(contact =>
         contact.name.toLowerCase().includes(filter.toLowerCase())
       )
-      .sort(function (a, b) {
-        let nameA = a.name.toLowerCase(),
-          nameB = b.name.toLowerCase();
-        if (nameA < nameB)
-          //сортируем строки по возрастанию
-          return -1;
-        if (nameA > nameB) return 1;
-        return 0;
-        //sort не робе
-      });
+      .sort(dataSort)
   };
 
   const contacts = getContacts();
