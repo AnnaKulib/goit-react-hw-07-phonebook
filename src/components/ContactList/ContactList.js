@@ -21,6 +21,7 @@ function ContactList() {
     };
 
     if (filter === '') {
+      // console.log(data)
       return data;
     }
     return data
@@ -32,17 +33,16 @@ function ContactList() {
 
   const contacts = getContacts();
 
-  if (contacts) {
     return (
       <>
-        <ul className={s.list}>
+      {contacts && <ul className={s.list}>
           {contacts.map(({ id, name, phone }) => (
             <ContactItem key={id} contact={{ id, name, phone }} />
           ))}
-        </ul>
+        </ul>}
+        
       </>
     );
-  }
 }
 
 export default ContactList;
