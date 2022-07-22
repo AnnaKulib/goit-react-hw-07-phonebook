@@ -12,26 +12,35 @@ function ContactList() {
     if (filter === '') {
       return data;
     }
-    return data.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()))
-    .sort(function(a, b) {
-      return a.name-b.name //sort не робе
-    });
+    return data
+      .filter(contact =>
+        contact.name.toLowerCase().includes(filter.toLowerCase())
+      )
+      .sort(function (a, b) {
+        let nameA = a.name.toLowerCase(),
+          nameB = b.name.toLowerCase();
+        if (nameA < nameB)
+          //сортируем строки по возрастанию
+          return -1;
+        if (nameA > nameB) return 1;
+        return 0;
+        //sort не робе
+      });
   };
 
   const contacts = getContacts();
 
   if (contacts) {
-  return (
-    <>
-    <ul className={s.list}>
-      {contacts
-      .map(({ id, name, phone }) => (
-        <ContactItem key={id} contact={{ id, name, phone}}/>
-        ))
-        }
-    </ul>
-    </>
-  )}
-};
+    return (
+      <>
+        <ul className={s.list}>
+          {contacts.map(({ id, name, phone }) => (
+            <ContactItem key={id} contact={{ id, name, phone }} />
+          ))}
+        </ul>
+      </>
+    );
+  }
+}
 
 export default ContactList;
